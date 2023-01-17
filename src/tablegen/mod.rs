@@ -48,12 +48,17 @@ pub fn row(
     header: bool,
     row_attrs: &str,
     col_attrs: &str,
+	i: u64,
 ) -> String {
     let col_tag = if header { "th" } else { "td" };
 
     let mut s = String::new();
 
-    s.push_str(&tag_with_attrs("tr", row_attrs));
+    if i%2 == 0 {
+        s.push_str(&tag_with_attrs("tr", "bgcolor=\"#dddddd\""));
+    } else {
+        s.push_str(&tag_with_attrs("tr", row_attrs));
+    }
 
     for col in cols {
         s.push_str(&format!(
@@ -95,7 +100,7 @@ mod test {
     #[test]
     fn test_row_1() {
         assert_eq!(
-            row(&vec!["foo", "bar", "baz"], false, "", ""),
+            row(&vec!["foo", "bar", "baz"], false, "", "", 0),
             "<tr><td>foo</td><td>bar</td><td>baz</td></tr>\n"
         )
     }
@@ -103,7 +108,7 @@ mod test {
     #[test]
     fn test_row_2() {
         assert_eq!(
-            row(&vec!["one", "two"], true, "x=1", "y=2"),
+            row(&vec!["one", "two"], true, "x=1", "y=2", 0),
             "<tr x=1><th y=2>one</th><th y=2>two</th></tr>\n"
         )
     }

@@ -198,7 +198,7 @@ fn app() -> errors::Result<()> {
         write!(
             output,
             "{}",
-            tablegen::row(&headers, true, &opts.tr_attrs, &opts.th_attrs)
+            tablegen::row(&headers, true, &opts.tr_attrs, &opts.th_attrs, 0)
         )
         .context(errors::WriteOutput {})?;
     }
@@ -222,7 +222,7 @@ fn app() -> errors::Result<()> {
         write!(
             output,
             "{}",
-            tablegen::row(&row, false, &opts.tr_attrs, &opts.td_attrs)
+            tablegen::row(&row, false, &opts.tr_attrs, &opts.td_attrs, i)
         )
         .context(errors::WriteOutput {})?;
 
